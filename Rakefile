@@ -20,3 +20,9 @@ namespace :sanitation do
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
 end
+
+desc "Run the spec harness"
+task :spec do
+  Dir.chdir("../sales_engine_spec_harness2")
+  system "bundle exec rake spec"
+end
