@@ -11,20 +11,15 @@ module CSVReader
   def self.read_from(filename, dir = "data")
     model = match_model(filename)
     full_path = File.join(dir, filename)
-    CSV.foreach(full_path, csv_options).map { |row| model.new(row.to_hash) }
+    CSV.foreach(full_path, csv_options) { |row| model.new(row.to_hash) }
+  end
+
+  def self.each(filename, dir = "data")
+    full_path = File.join(dir, filename)
+    CSV.foreach(full_path, csv_options) { |row| model.new(row.to_hash) }
   end
 
   def self.csv_options
-    { headers: true ,header_converters: :symbol, converters: :all }
-  end
-
-  def self.find_which_object(file_name)
-    models.find do |class_name|
-      file_name.gsub("_", "") =~ Regexp.new(class_name.to_s, "i")
-    end
-  end
-
-  def self.models
-    [Customer, InvoiceItem, Invoice, Item, Merchant, Transaction]
+    { headers: true, header_converters: :symbol, converters: :all }
   end
 end
