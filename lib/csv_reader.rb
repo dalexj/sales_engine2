@@ -8,15 +8,9 @@ require "csv"
 
 
 module CSVReader
-  def self.read_from(filename, dir = "data")
-    model = match_model(filename)
+  def self.each(filename, dir = "data", &block)
     full_path = File.join(dir, filename)
-    CSV.foreach(full_path, csv_options) { |row| model.new(row.to_hash) }
-  end
-
-  def self.each(filename, dir = "data")
-    full_path = File.join(dir, filename)
-    CSV.foreach(full_path, csv_options) { |row| model.new(row.to_hash) }
+    CSV.foreach(full_path, csv_options, &block)
   end
 
   def self.csv_options
