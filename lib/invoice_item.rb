@@ -1,5 +1,14 @@
 require_relative "model"
 
 class InvoiceItem < Model
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+  ATTRIBUTES = [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at]
+  attr_reader *ATTRIBUTES
+
+  def item
+    @engine.item_repository.find_by_id(item_id)
+  end
+
+  def invoice
+    @engine.invoice_repository.find_by_id(invoice_id)
+  end
 end

@@ -1,5 +1,10 @@
 require_relative "model"
 
 class Customer < Model
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  ATTRIBUTES = [:id, :first_name, :last_name, :created_at, :updated_at]
+  attr_reader *ATTRIBUTES
+
+  def invoices
+    @engine.invoice_repository.find_all_by_customer_id(id)
+  end
 end
