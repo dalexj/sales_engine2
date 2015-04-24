@@ -11,4 +11,12 @@ class InvoiceItem < Model
   def invoice
     @engine.invoice_repository.find_by_id(invoice_id)
   end
+
+  def invoice_created_at
+    invoice.created_at
+  end
+
+  def successful?
+    !invoice.pending?
+  end
 end

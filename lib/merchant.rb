@@ -13,9 +13,13 @@ class Merchant < Model
   end
 
   def revenue(date = nil)
+    invoices_on(date)
   end
 
   def favorite_customer
+    grouped_invoices_by_customer.max_by do |customer, invoices|
+      invoices.count
+    end.first
   end
 
   def customers_with_pending_invoices
@@ -26,5 +30,13 @@ class Merchant < Model
 
   def pending_invoices
     invoices.select(&:pending?)
+  end
+
+  def successful_invoices
+    invoices.reject(&:pending?)
+  end
+
+  def grouped_invoices_by_customer
+    successful_invoices.group_by(&:customer)
   end
 end

@@ -10,7 +10,7 @@ class Invoice < Model
   end
 
   def invoice_items
-    @engine.invoice_item_repository.find_by_invoice_id(id)
+    @engine.invoice_item_repository.find_all_by_invoice_id(id)
   end
 
   def items
