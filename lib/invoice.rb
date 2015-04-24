@@ -22,6 +22,10 @@ class Invoice < Model
   end
 
   def transactions
-    @engine.transaction_repository.find_by_invoice_id(id)
+    @engine.transaction_repository.find_all_by_invoice_id(id)
+  end
+
+  def pending?
+    transactions.none?(&:successful?)
   end
 end

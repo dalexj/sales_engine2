@@ -7,4 +7,8 @@ class Customer < Model
   def invoices
     @engine.invoice_repository.find_all_by_customer_id(id)
   end
+
+  def transactions
+    invoices.flat_map(&:transactions)
+  end
 end

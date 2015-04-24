@@ -19,5 +19,12 @@ class Merchant < Model
   end
 
   def customers_with_pending_invoices
+    pending_invoices.map(&:customer)
+  end
+
+  private
+
+  def pending_invoices
+    invoices.select(&:pending?)
   end
 end
