@@ -1,4 +1,5 @@
 require_relative "model"
+require "bigdecimal"
 
 class InvoiceItem < Model
   ATTRIBUTES = [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at]
@@ -18,5 +19,9 @@ class InvoiceItem < Model
 
   def successful?
     !invoice.pending?
+  end
+
+  def revenue
+    BigDecimal.new(unit_price) * quantity / 100
   end
 end

@@ -28,4 +28,8 @@ class Invoice < Model
   def pending?
     transactions.none?(&:successful?)
   end
+
+  def revenue
+    invoice_items.reduce(0) { |sum, ii| sum + ii.revenue }
+  end
 end

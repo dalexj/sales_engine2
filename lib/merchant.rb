@@ -13,7 +13,7 @@ class Merchant < Model
   end
 
   def revenue(date = nil)
-    invoices_on(date)
+    invoices_on(date).reduce(0) { |sum, invoice| sum + invoice.revenue }
   end
 
   def favorite_customer
@@ -38,5 +38,9 @@ class Merchant < Model
 
   def grouped_invoices_by_customer
     successful_invoices.group_by(&:customer)
+  end
+
+  def invoices_on(date)
+    date ? successful_invoices.select { |invoice| Date.parse(invoice.created_at) == date } : successful_invoices
   end
 end
