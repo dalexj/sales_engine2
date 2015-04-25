@@ -26,6 +26,10 @@ class Merchant < Model
     pending_invoices.map(&:customer)
   end
 
+  def items_sold
+    successful_invoices.reduce(0) { |sum, invoice| sum + invoice.total_quantity }
+  end
+
   private
 
   def pending_invoices

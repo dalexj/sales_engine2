@@ -9,4 +9,10 @@ class ItemRepository < Repo
   def csv_file
     "items.csv"
   end
+
+  def most_items(amount)
+  end
+
+  def most_revenue(amount)
+  end
 end
