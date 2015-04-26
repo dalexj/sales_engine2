@@ -34,4 +34,8 @@ class Item < Model
   def amount_sold
     successful_invoices_items.reduce(0) { |sum, ii| sum + ii.quantity }
   end
+
+  def revenue
+    successful_invoices_items.reduce(0) { |sum, ii| sum + ii.revenue }
+  end
 end
