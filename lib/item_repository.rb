@@ -11,8 +11,10 @@ class ItemRepository < Repo
   end
 
   def most_items(amount)
+    @models.sort_by(&:amount_sold).reverse[0, amount]
   end
 
   def most_revenue(amount)
+    @models.sort_by(&:revenue).reverse[0, amount]
   end
 end

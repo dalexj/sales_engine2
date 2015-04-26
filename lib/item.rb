@@ -30,4 +30,8 @@ class Item < Model
   def successful_invoices_items
     invoice_items.select(&:successful?)
   end
+
+  def amount_sold
+    successful_invoices_items.reduce(0) { |sum, ii| sum + ii.quantity }
+  end
 end
